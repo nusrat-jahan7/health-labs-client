@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../layout/Dashboard";
+import FeaturedTest from "../pages/FeaturedTest";
+import AllTests from "../pages/AllTests";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +15,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/featured-test",
+        element: <FeaturedTest />,
+      },
+      {
+        path: "/all-test",
+        element: <AllTests />
       },
       {
         path: "/login",

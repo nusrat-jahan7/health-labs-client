@@ -5,13 +5,21 @@ import { FaCartPlus } from "react-icons/fa";
 const Navbar = () => {
   const menus = (
     <>
-      <NavLink to="/" className="px-3 text-lg font-semibold">
+      <NavLink to="/" className="px-3 text-lg text-gray-600 font-semibold">
         Home
       </NavLink>
-      <NavLink to="/" className="px-3 text-lg font-semibold">
+      <NavLink
+        to="/all-test"
+        className="px-3 text-lg text-gray-600 font-semibold"
+      >
         All Tests
       </NavLink>
-      <NavLink className="px-3 text-lg font-semibold">Featured Tests</NavLink>
+      <NavLink
+        to={"/featured-test"}
+        className="px-3 text-lg text-gray-600 font-semibold"
+      >
+        Featured Tests
+      </NavLink>
     </>
   );
   // fixed z-10 bg-opacity-30 bg-black
