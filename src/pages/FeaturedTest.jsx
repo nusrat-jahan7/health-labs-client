@@ -4,7 +4,11 @@ import fBanner from "/images/featured-banner.jpg";
 const FeaturedTest = () => {
   return (
     <div>
-      <img className="w-full h-96" src={fBanner} alt="" />
+      <img
+        className="w-full object-cover h-auto aspect-auto"
+        src={fBanner}
+        alt=""
+      />
       <FeaturedCard />
     </div>
   );

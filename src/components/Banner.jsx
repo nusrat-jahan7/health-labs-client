@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 import "../App.css";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 const Banner = () => {
   return (
-    <div className="banner">
+    <div className="banner aspect-auto w-full h-auto">
       <div className="md:text-left text-center md:flex items-center md:justify-end md:max-w-7xl mx-auto py-10">
         <div className="space-y-7">
           <h1 className="lg:text-6xl text-4xl font-bold">
@@ -21,10 +22,13 @@ const Banner = () => {
           <p className="text-red-600 lg:text-xl font-semibold">
             Cupon Code : 00FRwt5x{" "}
           </p>
-          <button className="btn text-lg bg-blue-600 text-white border-0 uppercase">
+          <Link
+            to="/all-test"
+            className="btn text-lg bg-blue-600 hover:bg-blue-800 text-white border-0 uppercase"
+          >
             More Info{" "}
             <HiArrowNarrowRight className="text-xl"></HiArrowNarrowRight>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
