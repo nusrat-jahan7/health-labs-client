@@ -17,12 +17,14 @@
   background-size: cover;
 }
 .overlay {
-  position: absolute;
   background: rgba(248, 246, 246, 0.5);
-
-  /* center overlay text */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+}
+.all-test-banner {
+  background-image: url("/images/test-banner.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }

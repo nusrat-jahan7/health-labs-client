@@ -29,8 +29,8 @@ export default function SelectField({
           ...baseStyles,
           boxShadow: "none",
           borderRadius: "6px",
-          paddingTop: "1px",
-          paddingBottom: "1px",
+          paddingTop: "5.5px",
+          paddingBottom: "5.5px",
           borderColor: isFocused ? "#020817" : "#e5e7eb",
           ":hover": {
             borderColor: isFocused ? "#020817" : "#e5e7eb",

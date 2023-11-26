@@ -7,6 +7,7 @@ import Dashboard from "../layout/Dashboard";
 import FeaturedTest from "../pages/FeaturedTest";
 import AllTests from "../pages/AllTests";
 import TestDetails from "../pages/TestDetails";
+import MyProfile from "../pages/Dashboard/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -26,8 +27,12 @@ export const router = createBrowserRouter([
         element: <AllTests />,
       },
       {
-        path: "/all-test/:1",
+        path: "/tests/:slug",
         element: <TestDetails />,
+        loader: ({ params }) =>
+          fetch(
+            `https://diagnostic-center-server.vercel.app/tests/${params.slug}`
+          ),
       },
       {
         path: "/login",
@@ -42,11 +47,11 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
-    // children=[
-    //   {
-    //     path: "/dashboard",
-    //     element:
-    //   }
-    // ]
+    children: [
+      {
+        path: "/dashboard/my-profile",
+        element: <MyProfile />,
+      },
+    ],
   },
 ]);

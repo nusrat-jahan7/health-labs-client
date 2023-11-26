@@ -5,13 +5,9 @@ import quoteDown from "/images/quote-down.png";
 const TipsCard = () => {
   return (
     <div>
-      <div className="lg:flex max-w-7xl lg:mx-auto mt-8 shadow-xl mx-5 rounded-2xl">
+      <div className="lg:flex max-w-7xl lg:mx-auto mt-8 shadow-xl items-center mx-5 rounded-2xl">
         <figure className="flex-1">
-          <img
-            className="w-full h-[400px] rounded-t-2xl lg:rounded-l-2xl"
-            src={doctor}
-            alt="Movie"
-          />
+          <img className="w-full h-auto rounded-xl" src={doctor} alt="Movie" />
         </figure>
         <div className="card-body flex-1">
           <div>

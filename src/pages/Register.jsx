@@ -1,55 +1,124 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SelectField from "../components/SelectField";
 import { blood, districts, upazilas } from "../enums";
 import { useFormik } from "formik";
 import navLogo from "/images/nav-logo.png";
 import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import "../App.css";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
+// import * as Yup from "yup";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const initialValues = {
-  name: "",
-  email: "",
-  password: "",
-  confirm_password: "",
-  avatar: "",
-  blood_group: "",
-  district_id: "",
-  upazila_id: "",
+  name: "Md Sakibul Islam",
+  email: "sakib@gmail.com",
+  password: "Sakib@123",
+  confirm_password: "Sakib@123",
+  avatar: "https://i.ibb.co/hc10H6Q/dfa.jpg",
+  blood_group: "A+",
+  district_id: "33",
+  upazila_id: "267",
 };
 
-// const validationSchema = {};
+// const validationSchema = Yup.object().shape({
+//   name: Yup.string().required("Name is required"),
+//   email: Yup.string()
+//     .email("Invalid email address")
+//     .required("Email is required"),
+//   password: Yup.string()
+//     .min(8, "Password must be at least 8 characters")
+//     .required("Password is required"),
+//   confirm_password: Yup.string()
+//     .oneOf([Yup.ref("password"), null], "Passwords must match")
+//     .required("Confirm Password is required"),
+//   avatar: Yup.string(),
+//   blood_group: Yup.string(),
+//   district_id: Yup.string(),
+//   upazila_id: Yup.string(),
+// });
 
 const Register = () => {
-  const { signUp, setLoading } = useAuth();
-  const client = useAxiosSecure();
+  const { signUp, updateUserProfile, setLoading, loading } = useAuth();
+  const client = useAxiosPublic();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      formik.setFieldValue("avatar", file);
+    }
+  };
 
   const formik = useFormik({
     initialValues,
-    // validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      const { email, password } = values;
-      signUp(email, password)
-        .then((result) => {
-          console.log(result);
-          // const userInfo = {
-          //   name: name,
-          //   email: email,
-          //   avatar: avatar,
-          //   blood_group: blood_group,
-          //   district_id: district_id,
-          //   upazila_id: upazila_id,
-          // };
-          // client.post("/users", userInfo).then(({ data }) => console.log(data));
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => setLoading(false));
-      formik.reset();
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        const {
+          name,
+          email,
+          avatar,
+          password,
+          blood_group,
+          district_id,
+          upazila_id,
+        } = values;
+
+        const imageFile = { image: avatar };
+
+        // Upload image
+        const uploadImagePromise = client.post(image_hosting_api, imageFile, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        });
+
+        // Sign up user
+        const signUpPromise = signUp(email, password);
+
+        // Wait for all promises to resolve
+        const [imageUploadResult] = await Promise.all([
+          uploadImagePromise,
+          signUpPromise,
+        ]);
+
+        // Check if image upload was successful
+        if (imageUploadResult.data.success) {
+          const userInfo = {
+            email: email,
+            name: name,
+            avatar: imageUploadResult.data.data.display_url,
+            blood_group: blood_group,
+            district_id: district_id,
+            upazila_id: upazila_id,
+          };
+
+          // Update user profile
+          await updateUserProfile(userInfo.name, userInfo.avatar);
+
+          // Add user to "/users"
+          const { data } = await client.post("/users", userInfo);
+
+          formik.resetForm();
+
+          if (data.result.insertedId) {
+            toast.success("Account created successfully!");
+            navigate(from, { replace: true });
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     },
   });
+
   return (
     <div className="background">
       <div className="flex min-h-screen justify-center items-center max-w-7xl mx-auto px-5">
@@ -63,7 +132,7 @@ const Register = () => {
           </p>
           <div className="mt-6 mb-2">
             <form onSubmit={formik.handleSubmit} className="space-y-6">
-              <div className="lg:flex lg:justify-between lg:gap-5">
+              <div className="lg:flex flex-col lg:flex-row lg:justify-between gap-5">
                 <div className="flex-1">
                   <p className="font-semibold pb-2">Name</p>
                   <input
@@ -90,7 +159,7 @@ const Register = () => {
                 </div>
               </div>
 
-              <div className="lg:flex lg:justify-between lg:gap-5">
+              <div className="lg:flex flex-col lg:flex-row lg:justify-between gap-5">
                 <div className="flex-1">
                   <p className="font-semibold pb-2">Password</p>
                   <input
@@ -119,7 +188,7 @@ const Register = () => {
                 </div>
               </div>
 
-              <div className="lg:flex lg:justify-between lg:gap-5">
+              <div className="lg:flex flex-col lg:flex-row lg:justify-between gap-5">
                 <div className="flex-1">
                   <p className=" font-semibold pb-2">District</p>
                   <SelectField
@@ -158,10 +227,11 @@ const Register = () => {
                 </div>
               </div>
 
-              <div className="lg:flex lg:justify-between lg:gap-5">
+              <div className="lg:flex flex-col lg:flex-row lg:justify-between gap-5">
                 <div className="flex-1">
                   <p className="font-semibold pb-2">Avatar</p>
                   <input
+                    onChange={handleFileUpload}
                     type="file"
                     className="file-input rounded file-input-bordered file-input-md w-full"
                   />
@@ -187,9 +257,11 @@ const Register = () => {
               </div>
 
               <button
+                disabled={loading}
                 type="submit"
                 className="btn w-full bg-blue-600 text-white hover:bg-blue-800 text-lg"
               >
+                {loading && <span className="loading loading-spinner"></span>}
                 Sign up
               </button>
             </form>

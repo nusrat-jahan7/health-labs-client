@@ -1,6 +1,6 @@
 import Banner from "../components/Banner";
 import FeaturedCard from "../components/FeaturedCard";
-import Recommendation from "../components/Recommendation";
+import Recommendation from "./Recommendation";
 
 const Home = () => {
   return (

@@ -1,25 +1,34 @@
 import { Link, NavLink } from "react-router-dom";
 import navLogo from "/images/nav-logo.png";
+import navLogoPhn from "/images/nav-logo-phn.png";
 import { FaCartPlus } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
   const menus = (
     <>
-      <NavLink to="/" className="px-3 text-lg text-gray-600 font-semibold">
-        Home
-      </NavLink>
-      <NavLink
-        to="/all-test"
-        className="px-3 text-lg text-gray-600 font-semibold"
-      >
-        All Tests
-      </NavLink>
-      <NavLink
-        to={"/featured-test"}
-        className="px-3 text-lg text-gray-600 font-semibold"
-      >
-        Featured Tests
-      </NavLink>
+      <li>
+        <NavLink to="/" className="pr-5 text-lg text-gray-600 font-semibold">
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/all-test"
+          className="pr-5 text-lg text-gray-600 font-semibold"
+        >
+          All Tests
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/featured-test"}
+          className="pr-5 text-lg text-gray-600 font-semibold"
+        >
+          Featured Tests
+        </NavLink>
+      </li>
     </>
   );
   // fixed z-10 bg-opacity-30 bg-black
@@ -51,7 +60,8 @@ const Navbar = () => {
             </label>
           </div>
           <div className="flex-1 px-2 mx-2">
-            <img className="w-36" src={navLogo} alt="" />
+            <img className="w-36 hidden lg:block" src={navLogo} alt="" />
+            <img className="w-36 lg:hidden" src={navLogoPhn} alt="" />
           </div>
           <div className="flex-none hidden lg:block">
             <ul className="menu menu-horizontal">
@@ -62,11 +72,20 @@ const Navbar = () => {
           <Link to={"/dashboard"}>
             <FaCartPlus className="text-3xl mr-3"></FaCartPlus>
           </Link>
-          <Link to={"/login"}>
-            <button className="btn bg-blue-500 text-white text-lg hover:bg-blue-700">
-              Sign in
+          {user?.email ? (
+            <button
+              onClick={logOut}
+              className="btn bg-red-500 text-white text-lg hover:bg-red-700"
+            >
+              Logout
             </button>
-          </Link>
+          ) : (
+            <Link to={"/login"}>
+              <button className="btn bg-blue-500 text-white text-lg hover:bg-blue-700">
+                Sign in
+              </button>
+            </Link>
+          )}
         </div>
       </div>
       <div className="drawer-side">

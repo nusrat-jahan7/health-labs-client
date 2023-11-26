@@ -1,48 +1,61 @@
+import { useLoaderData } from "react-router-dom";
 import "../App.css";
-import test1 from "/images/test-1.jpg";
+import { MdOutlineQrCode } from "react-icons/md";
 import { FaBookBookmark, FaDollarSign, FaUsers } from "react-icons/fa6";
 
 const TestDetails = () => {
+  const test = useLoaderData();
+  const {
+    title,
+    image,
+    price,
+    promo_code,
+    available_slots,
+    description,
+    slots,
+  } = test.result;
+
   return (
     <div>
-      <div className="details-banner h-96 ">
+      <div className="banner h-auto aspect-auto ">
         <div className="overlay">
           <div className="flex justify-center items-center h-96 max-w-7xl mx-auto px-5 text-center">
             <h1 className="text-7xl font-bold text-blue-600 uppercase">
-              MRI (Magnetic Resonance Imaging)
+              {title}
             </h1>
           </div>
         </div>
       </div>
 
       {/* details section */}
-      <div className="flex items-center gap-20 max-w-7xl mx-auto px-5 my-10 relative">
-        <img className="w-3/5" src={test1} alt="" />
+      <div className="flex items-center gap-20 max-w-7xl mx-auto my-10 px-5 ">
+        <img className="w-2/5" src={image} alt="" />
         {/* <h1 className="absolute top-0 right-0 bg-blue-600 text-white text-xl px-3 rounded-xl mt-2">
             30%
           </h1> */}
 
         <div>
           <div className="flex  items-center text-blue-600 gap-3 pb-4">
-            <FaUsers className="text-2xl"></FaUsers>
+            <MdOutlineQrCode className="text-2xl"></MdOutlineQrCode>
             <span className="text-2xl font-semibold">
-              Available Seats : 10{" "}
+              Promo Code : {promo_code}
             </span>
           </div>
-          <div className="pb-4 gap-3">
-            <div className="badge badge-lg text-xl">8:00 - 9:00</div>
-            <div className="badge badge-lg text-xl">9:00 - 10:00</div>
-            <div className="badge badge-lg text-xl">4:00 - 5:00</div>
+          <div className="flex  items-center text-blue-600 gap-3 pb-4">
+            <FaUsers className="text-2xl"></FaUsers>
+            <span className="text-2xl font-semibold">
+              Available Seats : {available_slots}
+            </span>
           </div>
-          <p className="text-lg border-y py-4">
-            Magnetic Resonance Imaging (MRI) is a medical imaging technique that
-            uses a strong magnetic field and radio waves to generate detailed
-            images of the internal structures of the body.Patients are exposed
-            to a strong magnetic field.The patient lies inside a large,
-            tube-like machine.The patient lies inside a large, tube-like
-            machine.Some patients may feel claustrophobic inside the MRI
-            machine.{" "}
-          </p>
+
+          <div className="flex whitespace-nowrap flex-wrap pb-4 gap-3">
+            {slots?.map((slot, index) => (
+              <div key={index} className="badge badge-lg w-auto text-xl">
+                {slot}
+              </div>
+            ))}
+          </div>
+          <p className="text-lg border-y py-4">{description}</p>
           <button
             onClick={() => document.getElementById("my_modal_1").showModal()}
             className="btn bg-blue-600 text-white hover:bg-blue-800 uppercase text-lg mt-4"
@@ -53,8 +66,8 @@ const TestDetails = () => {
           <dialog id="my_modal_1" className="modal">
             <div className="modal-box w-11/12 max-w-3xl">
               <div className="flex justify-between font-semibold pt-3 pb-6 px-6">
-                <h1 className="text-2xl"> MRI (Magnetic Resonance Imaging)</h1>
-                <p className="text-3xl">$ 28</p>
+                <h1 className="text-2xl"> {title} </h1>
+                <p className="text-3xl">$ {price}</p>
               </div>
               <form method="dialog" className="space-y-4 px-6">
                 <div className="">
