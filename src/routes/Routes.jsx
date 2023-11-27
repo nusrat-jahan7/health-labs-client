@@ -8,6 +8,10 @@ import FeaturedTest from "../pages/FeaturedTest";
 import AllTests from "../pages/AllTests";
 import TestDetails from "../pages/TestDetails";
 import MyProfile from "../pages/Dashboard/MyProfile";
+import Appointments from "../pages/Dashboard/Appointments";
+import TestResults from "../pages/Dashboard/TestResults";
+import AllUsers from "../pages/Dashboard/Admin/AllUsers";
+import AddTest from "../pages/Dashboard/Admin/AddTest";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +55,22 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/my-profile",
         element: <MyProfile />,
+      },
+      {
+        path: "/dashboard/my-appointments",
+        element: <Appointments />,
+      },
+      {
+        path: "/dashboard/test-results",
+        element: <TestResults />,
+      },
+      {
+        path: "/dashboard/admin/all-users",
+        element: <AllUsers />,
+      },
+      {
+        path: "/dashboard/admin/add-test",
+        element: <AddTest />,
       },
     ],
   },
