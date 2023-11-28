@@ -1,9 +1,10 @@
+import { format } from "date-fns";
 import test1 from "/images/test-1.jpg";
 import { FaCalendar, FaClock, FaUsers } from "react-icons/fa6";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-const AllTestCard = ({ test }) => {
+const AllTestCard = ({ test, date, today }) => {
   const { title, image, price, discount_percent, available_slots, slug } = test;
 
   return (
@@ -39,13 +40,13 @@ const AllTestCard = ({ test }) => {
             </div>
             <div className="flex  items-center text-blue-600 gap-3">
               <FaCalendar className="text-2xl"></FaCalendar>
-              <span className="text-lg font-semibold">29 November, 2023</span>
+              <span className="text-lg font-semibold">{date}</span>
             </div>
           </div>
         </div>
         <div className="card-actions justify-end items-center">
           <Link
-            to={`/tests/${slug}`}
+            to={`/tests/${slug}/${today}`}
             className="btn border-0 rounded-t-none bg-blue-600 hover:bg-blue-800 text-lg text-white w-full uppercase"
           >
             Details test

@@ -1,6 +1,5 @@
 import { FaTrash } from "react-icons/fa6";
 import SectionTitle from "../../components/SectionTitle";
-import {} from "react-icons/fa";
 
 const Appointments = () => {
   return (

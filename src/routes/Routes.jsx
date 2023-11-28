@@ -12,6 +12,11 @@ import Appointments from "../pages/Dashboard/Appointments";
 import TestResults from "../pages/Dashboard/TestResults";
 import AllUsers from "../pages/Dashboard/Admin/AllUsers";
 import AddTest from "../pages/Dashboard/Admin/AddTest";
+import AllTest from "../pages/Dashboard/Admin/AllTest";
+import UpdateTest from "../pages/Dashboard/Admin/UpdateTest";
+import Reservation from "../pages/Dashboard/Admin/Reservation";
+import AddBanner from "../pages/Dashboard/Admin/AddBanner";
+import AllBanner from "../pages/Dashboard/Admin/AllBanner";
 
 export const router = createBrowserRouter([
   {
@@ -31,11 +36,11 @@ export const router = createBrowserRouter([
         element: <AllTests />,
       },
       {
-        path: "/tests/:slug",
+        path: "/tests/:slug/:date",
         element: <TestDetails />,
         loader: ({ params }) =>
           fetch(
-            `https://diagnostic-center-server.vercel.app/tests/${params.slug}`
+            `https://diagnostic-center-server.vercel.app/tests/${params.slug}/${params.date}`
           ),
       },
       {
@@ -71,6 +76,26 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/add-test",
         element: <AddTest />,
+      },
+      {
+        path: "/dashboard/admin/all-test",
+        element: <AllTest />,
+      },
+      {
+        path: "/dashboard/admin/all-test/update",
+        element: <UpdateTest />,
+      },
+      {
+        path: "/dashboard/admin/reservation",
+        element: <Reservation />,
+      },
+      {
+        path: "/dashboard/admin/add-banner",
+        element: <AddBanner />,
+      },
+      {
+        path: "/dashboard/admin/all-banner",
+        element: <AllBanner />,
       },
     ],
   },

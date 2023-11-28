@@ -6,3 +6,11 @@ export function formatDate(inputDate, outputFormat = "dd-MM-yyyy") {
   const formattedDate = format(parsedDate, outputFormat);
   return formattedDate;
 }
+
+export function calculateDiscount(originalPrice, discountPercentage) {
+  const discountAmount = (originalPrice * discountPercentage) / 100;
+
+  const remainingAmount = originalPrice - discountAmount;
+
+  return remainingAmount;
+}

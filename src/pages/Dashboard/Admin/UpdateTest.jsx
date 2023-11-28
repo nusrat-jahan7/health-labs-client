@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SectionTitle from "../../../components/SectionTitle";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const AddTest = () => {
+const UpdateTest = () => {
   const [startDate, setStartDate] = useState(new Date());
   return (
     <div>
-      <SectionTitle
-        heading="Add Test"
-        subHeading="Admin can Add new test by filling this form!"
-      />
+      <SectionTitle heading="Update Test" />
 
       <form
         action=""
@@ -143,4 +140,4 @@ const AddTest = () => {
   );
 };
 
-export default AddTest;
+export default UpdateTest;
