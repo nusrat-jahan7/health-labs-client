@@ -9,7 +9,7 @@ const AllUsers = () => {
         subHeading="Admin can see all the users and control their activities!"
       />
 
-      <div className="mx-3 mx-auto border-y-4 border-blue-600 mt-5 mb-10 overflow-x-scroll lg:overflow-x-hidden">
+      <div className="mr-8 mx-auto border-y-4 border-blue-600 mt-5 mb-10 overflow-x-scroll lg:overflow-x-hidden">
         <table className="table">
           {/* head */}
           <thead className="text-lg">
@@ -86,7 +86,13 @@ const AllUsers = () => {
                         Email Address : sakibxrz22@gmail.com
                       </p>
                       <p className="py-2 text-lg font-semibold">
-                        Phone Number : 01778345621
+                        Blood Group : AB+
+                      </p>
+                      <p className="py-2 text-lg font-semibold">
+                        District : Bhola
+                      </p>
+                      <p className="py-2 text-lg font-semibold">
+                        Upazila : Bhola
                       </p>
                       <p className="py-2 text-lg font-semibold">
                         Status : Active

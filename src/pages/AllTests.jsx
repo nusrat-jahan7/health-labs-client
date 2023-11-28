@@ -48,15 +48,7 @@ const AllTests = () => {
           heading="All Tests"
           subHeading="All tests are available here for today! Please check it out"
         />
-        <div className="mb-8 mt-4">
-          <FaSearch className="absolute mt-4 ml-4 text-lg text-gray-400"></FaSearch>
-          <input
-            type="text"
-            placeholder="Search here"
-            className="input input-bordered w-full pl-10"
-          />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-8">
           {tests?.map((test) => (
             <AllTestCard
               key={test._id}

@@ -82,10 +82,6 @@ export const router = createBrowserRouter([
         element: <AllTest />,
       },
       {
-        path: "/dashboard/admin/all-test/update",
-        element: <UpdateTest />,
-      },
-      {
         path: "/dashboard/admin/reservation",
         element: <Reservation />,
       },
