@@ -13,10 +13,10 @@ import TestResults from "../pages/Dashboard/TestResults";
 import AllUsers from "../pages/Dashboard/Admin/AllUsers";
 import AddTest from "../pages/Dashboard/Admin/AddTest";
 import AllTest from "../pages/Dashboard/Admin/AllTest";
-import UpdateTest from "../pages/Dashboard/Admin/UpdateTest";
 import Reservation from "../pages/Dashboard/Admin/Reservation";
 import AddBanner from "../pages/Dashboard/Admin/AddBanner";
 import AllBanner from "../pages/Dashboard/Admin/AllBanner";
+import Payment from "../pages/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +57,10 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     children: [
+      {
+        path: "/dashboard/payment",
+        element: <Payment></Payment>,
+      },
       {
         path: "/dashboard/my-profile",
         element: <MyProfile />,

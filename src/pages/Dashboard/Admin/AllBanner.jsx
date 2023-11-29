@@ -9,7 +9,7 @@ const AllBanner = () => {
         subHeading="Admin can select only one Banner from here for Home!"
       />
 
-      <div className="mr-8 mx-auto border-y-4 border-blue-600 my-10">
+      <div className="mx-3 mx-auto border-y-4 border-blue-600 my-10">
         <table className="table">
           {/* head */}
           <thead className="text-lg">

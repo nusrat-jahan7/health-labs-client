@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import "../App.css";
 import { MdOutlineQrCode } from "react-icons/md";
 import { FaBookBookmark, FaDollarSign, FaUsers } from "react-icons/fa6";
@@ -28,7 +28,7 @@ const TestDetails = () => {
 
   const pathname = window.location.pathname.split("/");
   const date = pathname[pathname.length - 1];
-
+  const navigate = useNavigate()
   const [discountedPrice, setDiscountedPrice] = useState("");
 
   const handlePromo = (e) => {
@@ -62,6 +62,7 @@ const TestDetails = () => {
         toast(data.message);
       } else if (data.code === 201) toast.success(data.message);
 
+      navigate('/dashboard/payment')
       document.getElementById("my_modal_1").close();
     });
   };

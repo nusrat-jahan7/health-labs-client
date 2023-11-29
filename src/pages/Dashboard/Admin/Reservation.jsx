@@ -17,7 +17,7 @@ const Reservation = () => {
           className="input input-bordered w-full pl-10"
         />
       </div>
-      <div className="mr-8 mx-auto border-y-4 border-blue-600 my-10 overflow-x-scroll lg:overflow-x-hidden">
+      <div className="mx-3 mx-auto border-y-4 border-blue-600 my-10 overflow-x-scroll lg:overflow-x-hidden">
         <table className="table">
           {/* head */}
           <thead className="text-lg">
