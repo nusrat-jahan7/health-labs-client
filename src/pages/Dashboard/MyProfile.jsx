@@ -105,8 +105,8 @@ const MyProfile = () => {
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-3xl px-4 text-gray-600">
-              Update User Information :
+            <h3 className="font-bold text-3xl px-4 text-gray-600 text-center">
+              Update User Information
             </h3>
             <div className="avatar flex justify-center pt-6 ">
               <h3 className="font-bold text-2xl px-4 text-center text-blue-600">

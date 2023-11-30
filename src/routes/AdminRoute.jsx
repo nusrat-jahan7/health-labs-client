@@ -3,7 +3,7 @@ import Spinner from "../components/Spinner";
 import useAuth from "../hooks/useAuth";
 import useAdmin from "../hooks/useAdmin";
 
-const AdminRoute = () => {
+const AdminRoute = ({ children }) => {
   const location = useLocation();
   const { user, loading } = useAuth();
   const [isAdmin, isAdminLoading] = useAdmin();

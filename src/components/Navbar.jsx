@@ -76,8 +76,12 @@ const Navbar = () => {
             </label>
           </div>
           <div className="flex-1 px-2 mx-2">
-            <img className="w-60 hidden lg:block" src={navLogo} alt="" />
-            <img className="w-36 lg:hidden" src={navLogo} alt="" />
+            <Link to={"/"}>
+              <img className="w-60 hidden lg:block" src={navLogo} alt="" />
+            </Link>
+            <Link to={"/"}>
+              <img className="w-36 lg:hidden" src={navLogo} alt="" />
+            </Link>
           </div>
           <div className="flex-none hidden lg:block">
             <ul className="menu menu-horizontal">
@@ -98,7 +102,7 @@ const Navbar = () => {
                       }
                     />
                   </div>
-                  <div className="hidden z-50 group-hover:block rounded-md absolute right-[-1rem] min-w-[200px] bg-white drop-shadow-lg">
+                  <div className="hidden z-50 group-hover:block rounded-md absolute right-[-1rem] min-w-[200px] bg-white drop-shadow-lg border shadow">
                     <p className="px-5 py-3 border-b font-medium text-md rounded-t-md cursor-default hover:bg-[#F5F5F5]">
                       {user?.displayName}
                     </p>
@@ -114,7 +118,7 @@ const Navbar = () => {
                     </Link>
                     <p
                       onClick={logOut}
-                      className="px-5 py-3 border-b font-medium text-md cursor-pointer hover:bg-red-500 hover:text-white"
+                      className="px-5 py-3 border-b font-medium text-md rounded-b-md cursor-pointer hover:bg-red-500 hover:text-white"
                     >
                       Logout
                     </p>

@@ -37,16 +37,9 @@ const AllTests = () => {
       <div className="max-w-7xl mx-auto">
         <SectionTitle
           heading="All Tests"
-          subHeading="All tests are available here for today! Please check it out"
+          subHeading={`All tests are available here for ${todayDate}`}
         />
-        <div className="mb-8 mt-4">
-          <FaSearch className="absolute mt-4 ml-4 text-lg text-gray-400"></FaSearch>
-          <input
-            type="text"
-            placeholder="Search here"
-            className="input input-bordered w-full pl-10"
-          />
-        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {tests?.map((test) => (
             <AllTestCard

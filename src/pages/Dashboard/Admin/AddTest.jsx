@@ -1,143 +1,214 @@
-import React, { useState } from "react";
+import { useFormik } from "formik";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "../../../components/SectionTitle";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
+const initialValues = {
+  title: "",
+  slug: "",
+  image: "",
+  description: "",
+  price: "",
+  promo_code: "",
+  discount_percent: "",
+  slots: [
+    "10.00 AM - 10.30 AM",
+    "10.30 AM - 11.00 AM",
+    "11.00 AM - 11.30 AM",
+    "11.30 AM - 12.00 PM",
+    "12.00 PM - 12.30 PM",
+    "12.30 PM - 01.00 PM",
+    "02.00 PM - 02.30 PM",
+    "02.30 PM - 03.00 PM",
+    "03.00 PM - 03.30 PM",
+    "03.30 PM - 04.00 PM",
+  ],
+};
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddTest = () => {
-  const [startDate, setStartDate] = useState(new Date());
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    if (file) {
+      formik.setFieldValue("image", file);
+    }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
+      try {
+        const { image } = values;
+
+        const imageFile = { image: image };
+
+        const uploadImagePromise = axiosPublic.post(
+          image_hosting_api,
+          imageFile,
+          {
+            headers: {
+              "content-type": "multipart/form-data",
+            },
+          }
+        );
+
+        const [imageUploadResult] = await Promise.all([uploadImagePromise]);
+
+        console.log(imageUploadResult);
+
+        if (imageUploadResult.data.success) {
+          const testInfo = {
+            title: values.title,
+            slug: values.title.toLowerCase().split(" ").join("-"),
+            image: imageUploadResult.data.data.display_url,
+            description: values.description,
+            price: values.price,
+            promo_code: values.promo_code,
+            discount_percent: values.discount_percent,
+            slots: [
+              "10.00 AM - 10.30 AM",
+              "10.30 AM - 11.00 AM",
+              "11.00 AM - 11.30 AM",
+              "11.30 AM - 12.00 PM",
+              "12.00 PM - 12.30 PM",
+              "12.30 PM - 01.00 PM",
+              "02.00 PM - 02.30 PM",
+              "02.30 PM - 03.00 PM",
+              "03.00 PM - 03.30 PM",
+              "03.30 PM - 04.00 PM",
+            ],
+          };
+
+          const { data } = await axiosSecure.post("/tests", testInfo);
+
+          formik.resetForm();
+
+          if (data.result.insertedId) {
+            toast.success("Test added successfully!");
+            navigate("/dashboard/admin/all-test");
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
+
   return (
     <div>
-      <SectionTitle
-        heading="Add Test"
-        subHeading="Admin can Add new test by filling this form!"
-      />
+      <SectionTitle heading="Add a New Test" />
 
-      <form
-        action=""
-        className="container flex flex-col mx-auto mt-4 space-y-12"
-      >
-        <div className="grid grid-cols-4 gap-6 p-6 rounded-md">
-          <div className="grid grid-cols-6 gap-4 w-full mx-auto col-span-full ">
-            <div className="col-span-full sm:col-span-3">
-              <label
-                htmlFor="name"
-                className="lg:text-lg lg:font-semibold text-blue-600"
-              >
-                Test Name
-              </label>
-              <input
-                required
-                id=""
-                name="name"
-                type="text"
-                placeholder="Ex- Serum Foundation"
-                className="w-full my-3 rounded-md p-3"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label
-                htmlFor="website"
-                className="lg:text-lg lg:font-semibold text-blue-600"
-              >
-                Image url
-              </label>
-              <input
-                required
-                id=""
-                name="image"
-                type="text"
-                placeholder="https://"
-                className="w-full p-3 my-3 rounded-md"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label
-                htmlFor="brand"
-                className="lg:text-lg lg:font-semibold text-blue-600"
-              >
-                Select Date
-              </label>
-              <div>
-                <DatePicker
-                  className="w-full p-3 my-3 rounded-md"
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                />
-              </div>
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label
-                htmlFor="type"
-                className="lg:text-lg lg:font-semibold text-blue-600"
-              >
-                Slots
-              </label>
-              <select
-                required
-                name="type"
-                className="select my-3 w-full rounded-md"
-              >
-                <option value={""} disabled selected>
-                  Set Slots
-                </option>
-                <option>10.00 AM - 10.30 AM</option>
-                <option>10.30 AM - 11.00 AM</option>
-                <option>11.00 AM - 11.30 AM</option>
-                <option>11.30 AM - 12.00 PM</option>
-                <option>12.00 PM - 12.30 PM</option>
-                <option>12.30 PM - 01.00 PM</option>
-                <option>02.00 PM - 02.30 PM</option>
-                <option>02.30 PM - 03.00 PM</option>
-                <option>03.00 PM - 03.30 PM</option>
-                <option>03.30 PM - 04.00 PM</option>
-              </select>
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label className="lg:text-lg lg:font-semibold text-blue-600">
-                Price
-              </label>
-              <input
-                required
-                id=""
-                name="price"
-                type="text"
-                placeholder="$"
-                className="w-full p-3 my-3 rounded-md"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label className="lg:text-lg lg:font-semibold text-blue-600">
-                Promo Code
-              </label>
-              <input
-                required
-                id=""
-                name="code"
-                type="text"
-                placeholder=""
-                className="w-full p-3 my-3 rounded-md"
-              />
-            </div>
-            <div className="col-span-full">
-              <label className="lg:text-lg lg:font-semibold text-blue-600">
-                Short Description
-              </label>
-              <input
-                id=""
-                name="description"
-                type="text"
-                placeholder=""
-                className="w-full p-3 my-3 py-6 rounded-md-pink-700"
-              />
-            </div>
+      <form onSubmit={formik.handleSubmit} className="space-y-6 p-5 lg:p-10">
+        <div className="md:flex lg:justify-between md:gap-5">
+          <div className="flex-1">
+            <p className="font-semibold pb-2">Test Title</p>
+            <input
+              value={formik.values.title}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              size="lg"
+              name="title"
+              placeholder="Test Title"
+              className="p-2 rounded-md input input-bordered w-full"
+            />
           </div>
-          <button
-            type="submit"
-            className="col-span-full lg:w-80 mx-auto btn bg-blue-600 text-white hover:bg-blue-800"
-          >
-            Add Test
-          </button>
         </div>
+
+        {/* price & image */}
+        <div className="md:flex lg:justify-between md:gap-5">
+          <div className="flex-1">
+            <p className="font-semibold pb-2"> Price </p>
+            <input
+              value={formik.values.price}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              size="lg"
+              type="number"
+              name="price"
+              placeholder="price"
+              className="p-2 rounded-md input input-bordered w-full"
+            />
+          </div>
+
+          <div className="flex-1">
+            <p className="font-semibold pb-2 pt-3 md:pt-0">Image</p>
+            <input
+              type="file"
+              name="image"
+              onChange={handleFileUpload}
+              className="file-input rounded-md file-input-blue-500 file-input-bordered file-input-md w-full"
+            />
+          </div>
+        </div>
+
+        {/* discount and promo code */}
+        <div className="md:flex lg:justify-between md:gap-5">
+          <div className="flex-1">
+            <p className="font-semibold pb-2">Discount Percent</p>
+            <input
+              value={formik.values.discount_percent}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              size="lg"
+              type="number"
+              name="discount_percent"
+              placeholder="discount percent"
+              className="p-2 rounded-md input input-bordered w-full"
+            />
+          </div>
+
+          <div className="flex-1">
+            <p className="font-semibold pb-2 pt-3 md:pt-0">Promo Code</p>
+            <input
+              value={formik.values.promo_code}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              size="lg"
+              name="promo_code"
+              placeholder="promo code"
+              className="p-2 rounded-md input input-bordered w-full"
+            />
+          </div>
+        </div>
+
+        {/* description */}
+        <div className="md:flex lg:justify-between md:gap-5">
+          <div className="flex-1">
+            <p className="font-semibold pb-2">Description</p>
+            <textarea
+              required
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              name="description"
+              placeholder="description"
+              className="textarea textarea-bordered textarea-lg w-full"
+            ></textarea>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          disabled={formik.isSubmitting}
+          className="btn w-full bg-blue-500 text-white hover:bg-blue-600 text-lg"
+        >
+          {formik.isSubmitting && (
+            <span className="loading loading-spinner"></span>
+          )}
+          Add Test
+        </button>
       </form>
     </div>
   );

@@ -14,3 +14,21 @@ export function calculateDiscount(originalPrice, discountPercentage) {
 
   return remainingAmount;
 }
+
+export function getTouchedFields(values, touched) {
+  const touchedFields = {};
+
+  Object.keys(values).forEach((key) => {
+    if (touched[key]) {
+      touchedFields[key] = values[key];
+    }
+  });
+
+  return touchedFields;
+}
+
+export const shuffleArray = (array) => {
+  let shuffledArray = [...array];
+  shuffledArray.sort(() => Math.random() - 0.5);
+  return shuffledArray;
+};

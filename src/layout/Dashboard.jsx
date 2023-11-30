@@ -10,15 +10,15 @@ import {
 } from "react-icons/md";
 import { IoDocuments } from "react-icons/io5";
 import useAdmin from "../hooks/useAdmin";
-// import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
-  // const { logOut } = useAuth();
+  const { logOut } = useAuth();
 
   return (
     <div className="lg:flex  bg-blue-50">
-      <div className="lg:w-3/12 lg:min-h-screen bg-blue-500 border-r border-blue-500 sticky h-screen top-0 ">
+      <div className="lg:w-3/12 lg:min-h-screen bg-blue-500 border-r border-blue-500 lg:sticky lg:h-screen lg:top-0 ">
         <div className="flex justify-center pt-5">
           <Link to="/">
             <img className="w-40" src={logo} alt="" />
@@ -133,12 +133,12 @@ const Dashboard = () => {
             </NavLink>
           </li>
         </ul>
-        {/* <div
+        <div
           onClick={logOut}
           className="btn rounded-none text-blue-500 lg:flex items-center lg:text-xl mt-4 absolute bottom-0 left-0 w-full hover:bg-red-500 hover:text-white border-none hidden"
         >
           Logout
-        </div> */}
+        </div>
       </div>
       <div className="flex-1 min-h-screen">
         <Outlet />

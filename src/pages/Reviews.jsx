@@ -18,9 +18,9 @@ const Reviews = () => {
       </div>
 
       <div className=" mx-auto px-5 grid grid-cols-1 lg:grid-cols-2 ">
-        <div className="lg:flex items-center  bg-lime-100 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 lg:rounded-l-full rounded-r-xl">
+        <div className="md:flex items-center bg-blue-200 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 md:rounded-l-full rounded-r-xl">
           <figure className="w-72 flex justify-center items-center mx-auto">
-            <img src={client1} alt="Shoes" className="w-72 h-72 rounded-full" />
+            <img src={client1} alt="" className="w-72 h-72 rounded-full" />
           </figure>
           <div className="flex-1 pt-8 pr-8 pl-8 pb-4">
             <div className="flex gap-2 text-3xl text-yellow-400 my-4">
@@ -44,9 +44,9 @@ const Reviews = () => {
           </div>
         </div>
 
-        <div className="lg:flex items-center  bg-lime-100 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 lg:rounded-l-full rounded-r-xl">
+        <div className="md:flex items-center  bg-blue-200 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 md:rounded-l-full rounded-r-xl">
           <figure className="w-72 flex justify-center items-center mx-auto">
-            <img src={client2} alt="Shoes" className="w-72 h-72 rounded-full" />
+            <img src={client2} alt="" className="w-72 h-72 rounded-full" />
           </figure>
           <div className="flex-1 pt-8 pr-8 pl-8 pb-4">
             <div className="flex gap-2 text-3xl text-yellow-400 my-4">
@@ -70,9 +70,9 @@ const Reviews = () => {
           </div>
         </div>
 
-        <div className="lg:flex items-center  bg-lime-100 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 lg:rounded-l-full rounded-r-xl">
+        <div className="md:flex items-center  bg-blue-200 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 md:rounded-l-full rounded-r-xl">
           <figure className="w-72 flex justify-center items-center mx-auto">
-            <img src={client3} alt="Shoes" className="w-72 h-72 rounded-full" />
+            <img src={client3} alt="" className="w-72 h-72 rounded-full" />
           </figure>
           <div className="flex-1 pt-8 pr-8 pl-8 pb-4">
             <div className="flex gap-2 text-3xl text-yellow-400 my-4">
@@ -96,9 +96,9 @@ const Reviews = () => {
           </div>
         </div>
 
-        <div className="lg:flex items-center  bg-lime-100 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 lg:rounded-l-full rounded-r-xl">
+        <div className="md:flex items-center  bg-blue-200 w-9/12 mx-auto shadow-xl mt-8 rounded-t-full gap-6 md:rounded-l-full rounded-r-xl">
           <figure className="w-72 flex justify-center items-center mx-auto">
-            <img src={client4} alt="Shoes" className="w-72 h-72 rounded-full" />
+            <img src={client4} alt="" className="w-72 h-72 rounded-full" />
           </figure>
           <div className="flex-1 pt-8 pr-8 pl-8 pb-4">
             <div className="flex gap-2 text-3xl text-yellow-400 my-4">

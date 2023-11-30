@@ -1,6 +1,4 @@
-import { format } from "date-fns";
-import test1 from "/images/test-1.jpg";
-import { FaCalendar, FaClock, FaUsers } from "react-icons/fa6";
+import { FaCalendar, FaUsers } from "react-icons/fa6";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
@@ -10,7 +8,7 @@ const AllTestCard = ({ test, date, today }) => {
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
-        <img className="relative" src={image} alt="Shoes" />
+        <img className="relative" src={image} alt="" />
       </figure>
       <h2 className="text-white bg-lime-600 text-xl absolute right-0 mr-2 px-3 rounded-xl mt-2">
         {discount_percent} %
@@ -25,11 +23,6 @@ const AllTestCard = ({ test, date, today }) => {
               $ {price}{" "}
             </p>
           </div>
-          <p className="text-lg line-clamp-2 hidden">
-            {" "}
-            A non-invasive imaging technique that uses powerful magnets and
-            radio waves to create detailed images of the brain and spinal cord.
-          </p>
           <div className="pl-4 py-3">
             <div className="flex  items-center text-blue-600 gap-3 pb-2">
               <FaUsers className="text-2xl"></FaUsers>
