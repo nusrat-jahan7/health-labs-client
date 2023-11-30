@@ -20,6 +20,8 @@ import Payment from "../pages/Payment/Payment";
 import Blog from "../pages/Blog";
 import Reviews from "../pages/Reviews";
 import Faq from "../pages/Faq";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -68,7 +70,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/payment",
-        element: <Payment></Payment>,
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -78,39 +84,76 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/my-profile",
-        element: <MyProfile />,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <MyProfile />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/my-appointments",
-        element: <Appointments />,
+        element: (
+          <PrivateRoute>
+            <Appointments />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/test-results",
-        element: <TestResults />,
+        element: (
+          <PrivateRoute>
+            <TestResults />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/admin/all-users",
-        element: <AllUsers />,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin/add-test",
-        element: <AddTest />,
+        element: (
+          <AdminRoute>
+            <AddTest />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin/all-test",
-        element: <AllTest />,
+        element: (
+          <AdminRoute>
+            <AllTest />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin/reservation",
-        element: <Reservation />,
+        element: (
+          <AdminRoute>
+            <Reservation />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin/add-banner",
-        element: <AddBanner />,
+        element: (
+          <AdminRoute>
+            <AddBanner />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/admin/all-banner",
-        element: <AllBanner />,
+        element: (
+          <AdminRoute>
+            <AllBanner />
+          </AdminRoute>
+        ),
       },
     ],
   },

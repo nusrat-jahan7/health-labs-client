@@ -1,6 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
 import navLogo from "/images/nav-logo.png";
-import { FaCartPlus } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import useAdmin from "../hooks/useAdmin";
 
@@ -87,7 +86,7 @@ const Navbar = () => {
             </ul>
           </div>
 
-          <div className="hidden lg:block">
+          <div>
             {user?.email ? (
               <div className="flex items-center gap-2">
                 <div className="relative group">
@@ -123,26 +122,11 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <button className="hidden btn lg:inline-block">
+              <button className=" btn bg-blue-600 text-white text-lg hover:bg-blue-800 inline-block">
                 <Link to="/login">Sign in</Link>
               </button>
             )}
           </div>
-
-          {/* {user?.email ? (
-            <button
-              onClick={logOut}
-              className="btn bg-red-500 text-white text-lg hover:bg-red-700"
-            >
-              Logout
-            </button>
-          ) : (
-            <Link to={"/login"}>
-              <button className="btn bg-blue-500 text-white text-lg hover:bg-blue-700">
-                Sign in
-              </button>
-            </Link>
-          )} */}
         </div>
       </div>
       <div className="drawer-side">
