@@ -1,11 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import navLogo from "/images/nav-logo.png";
-import navLogoPhn from "/images/nav-logo-phn.png";
 import { FaCartPlus } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
+import useAdmin from "../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [isAdmin] = useAdmin();
   const menus = (
     <>
       <li>
@@ -23,17 +24,33 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to={"/featured-test"}
+          to={"/blog"}
           className="pr-5 text-lg text-gray-600 font-semibold"
         >
-          Featured Tests
+          Blog
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/reviews"}
+          className="pr-5 text-lg text-gray-600 font-semibold"
+        >
+          Reviews
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/faq"}
+          className="pr-5 text-lg text-gray-600 font-semibold"
+        >
+          FAQ
         </NavLink>
       </li>
     </>
   );
   // fixed z-10 bg-opacity-30 bg-black
   return (
-    <div className="drawer bg-opacity-30 bg-white text-black max-w-7xl mx-auto">
+    <div className="drawer bg-opacity-30 bg-white text-black max-w-7xl mx-auto z-50">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
@@ -60,8 +77,8 @@ const Navbar = () => {
             </label>
           </div>
           <div className="flex-1 px-2 mx-2">
-            <img className="w-36 hidden lg:block" src={navLogo} alt="" />
-            <img className="w-36 lg:hidden" src={navLogoPhn} alt="" />
+            <img className="w-60 hidden lg:block" src={navLogo} alt="" />
+            <img className="w-36 lg:hidden" src={navLogo} alt="" />
           </div>
           <div className="flex-none hidden lg:block">
             <ul className="menu menu-horizontal">
@@ -69,10 +86,50 @@ const Navbar = () => {
               {menus}
             </ul>
           </div>
-          <Link to={"/dashboard"}>
-            <FaCartPlus className="text-3xl mr-3"></FaCartPlus>
-          </Link>
-          {user?.email ? (
+
+          <div className="hidden lg:block">
+            {user?.email ? (
+              <div className="flex items-center gap-2">
+                <div className="relative group">
+                  <div className="w-10 rounded-full cursor-pointer">
+                    <img
+                      className="rounded-full object-cover w-10 h-10"
+                      src={
+                        user?.photoURL ?? "https://i.ibb.co/t4NG2L4/user.png"
+                      }
+                    />
+                  </div>
+                  <div className="hidden z-50 group-hover:block rounded-md absolute right-[-1rem] min-w-[200px] bg-white drop-shadow-lg">
+                    <p className="px-5 py-3 border-b font-medium text-md rounded-t-md cursor-default hover:bg-[#F5F5F5]">
+                      {user?.displayName}
+                    </p>
+                    <Link
+                      to={
+                        isAdmin
+                          ? "/dashboard/admin/all-users"
+                          : "/dashboard/my-profile"
+                      }
+                      className="block px-5 py-3 border-b font-medium text-md rounded-t-md cursor-pointer hover:bg-[#F5F5F5]"
+                    >
+                      Dashboard
+                    </Link>
+                    <p
+                      onClick={logOut}
+                      className="px-5 py-3 border-b font-medium text-md cursor-pointer hover:bg-red-500 hover:text-white"
+                    >
+                      Logout
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <button className="hidden btn lg:inline-block">
+                <Link to="/login">Sign in</Link>
+              </button>
+            )}
+          </div>
+
+          {/* {user?.email ? (
             <button
               onClick={logOut}
               className="btn bg-red-500 text-white text-lg hover:bg-red-700"
@@ -85,7 +142,7 @@ const Navbar = () => {
                 Sign in
               </button>
             </Link>
-          )}
+          )} */}
         </div>
       </div>
       <div className="drawer-side">

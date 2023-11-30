@@ -8,7 +8,7 @@ const override = {
 
 const Spinner = () => {
   return (
-    <div className="sweet-loading">
+    <div className="sweet-loading mt-20">
       <BounceLoader
         color={"blue"}
         loading={true}

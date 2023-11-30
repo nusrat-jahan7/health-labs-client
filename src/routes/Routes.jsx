@@ -17,6 +17,9 @@ import Reservation from "../pages/Dashboard/Admin/Reservation";
 import AddBanner from "../pages/Dashboard/Admin/AddBanner";
 import AllBanner from "../pages/Dashboard/Admin/AllBanner";
 import Payment from "../pages/Payment/Payment";
+import Blog from "../pages/Blog";
+import Reviews from "../pages/Reviews";
+import Faq from "../pages/Faq";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +39,18 @@ export const router = createBrowserRouter([
         element: <AllTests />,
       },
       {
+        path: "/blog",
+        element: <Blog />,
+      },
+      {
+        path: "/reviews",
+        element: <Reviews />,
+      },
+      {
+        path: "/faq",
+        element: <Faq />,
+      },
+      {
         path: "/tests/:slug/:date",
         element: <TestDetails />,
         loader: ({ params }) =>
@@ -51,16 +66,16 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
+      {
+        path: "/payment",
+        element: <Payment></Payment>,
+      },
     ],
   },
   {
     path: "/dashboard",
     element: <Dashboard />,
     children: [
-      {
-        path: "/dashboard/payment",
-        element: <Payment></Payment>,
-      },
       {
         path: "/dashboard/my-profile",
         element: <MyProfile />,

@@ -4,12 +4,9 @@ import SectionTitle from "../../../components/SectionTitle";
 const AllUsers = () => {
   return (
     <div>
-      <SectionTitle
-        heading="All Users"
-        subHeading="Admin can see all the users and control their activities!"
-      />
+      <SectionTitle heading="All Users" />
 
-      <div className="mr-8 mx-auto border-y-4 border-blue-600 mt-5 mb-10 overflow-x-scroll lg:overflow-x-hidden">
+      <div className="w-11/12 mx-auto border-y-4 border-blue-600 my-10 overflow-x-scroll lg:overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead className="text-lg">

@@ -201,7 +201,7 @@ const Register = () => {
                       )
                     }
                     onBlur={formik.handleBlur}
-                    value={blood.find(
+                    value={districts.find(
                       (el) => el.value === formik.values.district_id
                     )}
                     isSearchable
@@ -219,7 +219,7 @@ const Register = () => {
                       )
                     }
                     onBlur={formik.handleBlur}
-                    value={blood.find(
+                    value={upazilas.find(
                       (el) => el.value === formik.values.upazila_id
                     )}
                     isSearchable

@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import "../App.css";
 import { MdOutlineQrCode } from "react-icons/md";
-import { FaBookBookmark, FaDollarSign, FaUsers } from "react-icons/fa6";
+import { FaBookBookmark, FaUsers } from "react-icons/fa6";
 import { calculateDiscount } from "../utils";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
@@ -28,7 +28,7 @@ const TestDetails = () => {
 
   const pathname = window.location.pathname.split("/");
   const date = pathname[pathname.length - 1];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [discountedPrice, setDiscountedPrice] = useState("");
 
   const handlePromo = (e) => {
@@ -57,13 +57,22 @@ const TestDetails = () => {
       booking_date: date,
     };
 
-    client.post("/appointment", payload).then(({ data }) => {
+    client.post("/appointments", payload).then(({ data }) => {
       if (data.code === 200) {
         toast(data.message);
-      } else if (data.code === 201) toast.success(data.message);
+        document.getElementById("my_modal_1").close();
+      } else if (data.code === 201) {
+        toast.success(data.message);
+        const paymentInfo = {
+          appointment_id: data?.result?.insertedId,
+          user_email: user?.email,
+          price: discountedPrice ? discountedPrice : price,
+        };
 
-      navigate('/dashboard/payment')
-      document.getElementById("my_modal_1").close();
+        localStorage.setItem("appointment-info", JSON.stringify(paymentInfo));
+        navigate("/payment");
+        document.getElementById("my_modal_1").close();
+      }
     });
   };
 
@@ -100,9 +109,12 @@ const TestDetails = () => {
             </span>
           </div>
 
-          <div className="flex whitespace-nowrap flex-wrap pb-4 gap-3">
+          <div className="flex items-center whitespace-nowrap flex-wrap pb-4 gap-3">
             {slots?.map((slot, index) => (
-              <div key={index} className="badge badge-lg w-auto text-xl gap-3">
+              <div
+                key={index}
+                className="badge badge-lg w-auto text-xl gap-3 border-blue-500"
+              >
                 <input
                   type="radio"
                   id={`slot-${index}`}
@@ -117,6 +129,7 @@ const TestDetails = () => {
           </div>
           <p className="text-lg border-y py-4">{description}</p>
           <button
+            disabled={!available_slots}
             onClick={() => document.getElementById("my_modal_1").showModal()}
             className="btn bg-blue-600 text-white hover:bg-blue-800 uppercase text-lg mt-4"
           >
@@ -177,7 +190,7 @@ const TestDetails = () => {
                       type="submit"
                       className="btn bg-blue-600 hover:bg-blue-800 text-white uppercase text-xl "
                     >
-                      <FaDollarSign className="text-xl"></FaDollarSign> pay
+                      Proceed to checkout
                     </button>
                   </div>
                 </form>

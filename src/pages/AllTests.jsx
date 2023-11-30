@@ -3,10 +3,8 @@ import "../App.css";
 import Calender from "../components/Calender";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
-import Spinner from "../components/Spinner";
 import SectionTitle from "../components/SectionTitle";
 import { FaSearch } from "react-icons/fa";
-import { formatDate } from "../utils";
 import { format } from "date-fns";
 import { useState } from "react";
 
@@ -18,19 +16,12 @@ const AllTests = () => {
   const today = format(selectedDate, "dd-MM-yyyy");
   const todayDate = format(selectedDate, "PP");
 
-  const {
-    data: tests,
-    refetch,
-    isLoading,
-  } = useQuery({
+  const { data: tests } = useQuery({
     queryKey: ["tests", today],
     queryFn: () =>
       client.get(`/tests?date=${today}`).then(({ data }) => data.result),
   });
 
-  if (isLoading) {
-    <Spinner />;
-  }
   return (
     <div>
       <div className="all-test-banner aspect-auto h-auto">
