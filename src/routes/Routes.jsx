@@ -54,7 +54,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/tests/:slug/:date",
-        element: <TestDetails />,
+        element: (
+          <PrivateRoute>
+            <TestDetails />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(
             `https://diagnostic-center-server.vercel.app/tests/${params.slug}/${params.date}`
